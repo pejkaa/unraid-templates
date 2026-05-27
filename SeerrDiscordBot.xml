@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>SeerrDiscordBot</Name>
+  <Repository>pejkaa/seerr-discord-bot</Repository>
+  <Registry>https://hub.docker.com/r/pejkaa/seerr-discord-bot</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/pejkaa/seerr-discord-bot</Support>
+  <Project>https://github.com/pejkaa/seerr-discord-bot</Project>
+  <Overview>A Discord bot that lets users request movies and TV shows via slash commands, routed through your Overseerr or Jellyseerr instance. Supports separate libraries (Movies, Kids Movies, TV Shows, Kids TV Shows), Discord-to-Seerr user linking, and availability notifications.</Overview>
+  <Category>MediaApp:Other Tools:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/pejkaa/unraid-templates/main/SeerrDiscordBot.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/discord.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>A Discord Bot Token (from https://discord.com/developers/applications) and a running Overseerr or Jellyseerr instance.</Requires>
+
+  <Config Name="Discord Bot Token" Target="DISCORD_TOKEN" Default="" Mode="" Description="Your Discord bot token. Get it from https://discord.com/developers/applications → Your App → Bot → Reset Token." Type="Variable" Display="always" Required="true" Mask="true"/>
+
+  <Config Name="Discord Client ID" Target="DISCORD_CLIENT_ID" Default="" Mode="" Description="Your Discord application's Client ID (also called Application ID). Found at https://discord.com/developers/applications → Your App → General Information." Type="Variable" Display="always" Required="true" Mask="false"/>
+
+  <Config Name="Discord Server ID" Target="DISCORD_GUILD_ID" Default="" Mode="" Description="Your Discord server ID. Enable Developer Mode in Discord (Settings → Advanced), then right-click your server and select Copy Server ID." Type="Variable" Display="always" Required="true" Mask="false"/>
+
+  <Config Name="Requests Channel ID" Target="REQUESTS_CHANNEL_ID" Default="" Mode="" Description="The Discord channel ID where new requests will be posted. Right-click the channel and select Copy Channel ID." Type="Variable" Display="always" Required="true" Mask="false"/>
+
+  <Config Name="Notify Channel ID" Target="NOTIFY_CHANNEL_ID" Default="" Mode="" Description="The Discord channel ID where availability notifications will be sent (e.g. when a requested movie is ready). Can be the same as Requests Channel. Right-click the channel and select Copy Channel ID." Type="Variable" Display="always" Required="false" Mask="false"/>
+
+  <Config Name="Seerr URL" Target="SEER_URL" Default="http://192.168.1.100:5055" Mode="" Description="The URL of your Overseerr or Jellyseerr instance, including port. Example: http://192.168.1.100:5055" Type="Variable" Display="always" Required="true" Mask="false"/>
+
+  <Config Name="Seerr API Key" Target="SEER_API_KEY" Default="" Mode="" Description="Your Overseerr or Jellyseerr API key. Found in Jellyseerr/Overseerr → Settings → General → API Key." Type="Variable" Display="always" Required="true" Mask="true"/>
+
+  <Config Name="Allowed Role ID" Target="ALLOWED_ROLE_ID" Default="" Mode="" Description="Optional. If set, only Discord users with this role can use /request commands. Leave blank to allow everyone. Right-click a role in Server Settings → Roles to copy its ID." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+
+  <Config Name="Admin Role ID" Target="ADMIN_ROLE_ID" Default="" Mode="" Description="Optional. If set, only Discord users with this role can use /linklist. Leave blank to allow everyone. Right-click a role in Server Settings → Roles to copy its ID." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+
+  <Config Name="Data Directory" Target="/app/data" Default="/mnt/user/appdata/SeerrDiscordBot/data" Mode="rw" Description="Path to store persistent data (user links and request tracking). This data survives container restarts and updates." Type="Path" Display="advanced" Required="true" Mask="false"/>
+
+</Container>
