@@ -1,0 +1,18 @@
+docker run -d \
+  --name SeerrDiscordBot \
+  --restart unless-stopped \
+  -e DISCORD_TOKEN=your_token \
+  -e DISCORD_CLIENT_ID=your_client_id \
+  -e DISCORD_GUILD_ID=your_guild_id \
+  -e REQUESTS_CHANNEL_ID=your_channel_id \
+  -e NOTIFY_CHANNEL_ID=your_notify_channel_id \
+  -e SEER_URL=http://192.168.1.100:5055 \
+  -e SEER_API_KEY=your_api_key \
+  -e LIBRARY_1_NAME=Movies \
+  -e LIBRARY_1_TYPE=movie \
+  -e LIBRARY_1_SERVER_ID=0 \
+  -e LIBRARY_2_NAME="TV Shows" \
+  -e LIBRARY_2_TYPE=tv \
+  -e LIBRARY_2_SERVER_ID=0 \
+  -v /mnt/user/appdata/SeerrDiscordBot/data:/app/data \
+  pejkaa/seerr-discord-bot:latest
