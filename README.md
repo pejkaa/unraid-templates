@@ -1,13 +1,13 @@
 # Seerr Discord Bot
 
-A Discord bot that lets users request movies and TV shows via slash commands, routed through your Overseerr or Jellyseerr instance. Supports multiple configurable libraries, Discord-to-Seerr user account linking, and availability notifications.
+A Discord bot that lets users request movies and TV shows via slash commands, routed through your Seerr(Jellyseerr and Overseerr should work as well) instance. Supports multiple configurable libraries, Discord-to-Seerr user account linking, and availability notifications.
 
 ## Features
 
 - 🎬 `/request-movies` — search and request movies
 - 📺 `/request-tv-shows` — search and request TV shows
 - 👨‍👩‍👧 Optional extra libraries (Kids Movies, Kids TV Shows, etc)
-- 🔗 Link Discord accounts to Jellyseerr/Overseerr user profiles
+- 🔗 Link Discord accounts to Seerr user profiles
 - 📥 Posts new requests to a dedicated Discord channel
 - 🔔 Pings users in a notification channel when their media is available
 - 📺 Season picker for TV show requests
@@ -21,11 +21,11 @@ A Discord bot that lets users request movies and TV shows via slash commands, ro
 | `/request-tv-shows` | Search and request a TV show |
 | `/request-kids-movies` | Request a kids movie (if configured) |
 | `/request-kids-tv-shows` | Request a kids TV show (if configured) |
-| `/link <email>` | Link your Discord account to your Jellyseerr account |
+| `/link <email>` | Link your Discord account to your Seerr account |
 | `/unlink` | Unlink your Discord account |
-| `/whois [@user]` | Check which Jellyseerr account a Discord user is linked to |
-| `/linklist` | List all linked Discord <-> Jellyseerr accounts (admin only) |
-| `/seer-status` | Check bot and Jellyseerr connection status |
+| `/whois [@user]` | Check which Seerr account a Discord user is linked to |
+| `/linklist` | List all linked Discord <-> Seerr accounts (admin only) |
+| `/seer-status` | Check bot and Seerr connection status |
 
 > Command names are dynamic based on your library configuration. If you name Library 1 "Movies", the command becomes `/request-movies`.
 
@@ -33,7 +33,7 @@ A Discord bot that lets users request movies and TV shows via slash commands, ro
 
 ## Prerequisites
 
-- A running **Jellyseerr** or **Overseerr** instance
+- A running **Seerr** or **Overseerr** instance
 - A **Discord application and bot** (free) at https://discord.com/developers/applications
 - **Docker** (Unraid, Portainer, or any Docker host)
 
@@ -71,11 +71,11 @@ Enable Developer Mode in Discord: **Settings → Advanced → Developer Mode**
 
 ---
 
-## Jellyseerr Setup
+## Seerr Setup
 
 ### Get your API Key
 
-Go to **Jellyseerr → Settings → General** and copy the **API Key**
+Go to **Seerr → Settings → General** and copy the **API Key**
 
 ### Find your Server IDs
 
@@ -225,12 +225,12 @@ docker exec SeerrDiscordBot node src/register.js
 Users can link their Discord account to their Jellyseerr profile so requests show under their name and respect their quotas:
 
 ```
-/link their-jellyseerr-email@example.com
+/link their-Seerr-email@example.com
 ```
 
-After linking, requests are submitted under their Jellyseerr account. Unlinked users can still make requests — they go through the bot's default API user.
+After linking, requests are submitted under their Seerr account. Unlinked users can still make requests — they go through the bot's default API user.
 
-> If you use Plex login on Jellyseerr, create a local account for each user in **Jellyseerr → Settings → Users → Add User**, then have them use `/link` with that email.
+> If you use Plex login on Seerr, import users ins **Seerr → Users → Import Plex Users**, then have them use `/link` with that email.
 
 ---
 
@@ -243,24 +243,6 @@ After linking, requests are submitted under their Jellyseerr account. Unlinked u
 5. Bot posts a summary embed to your requests channel
 6. Every 5 minutes the bot polls Jellyseerr for status updates
 7. When media becomes available, bot pings the requester in the notify channel
-
----
-
-## Updating
-
-When a new image is available:
-
-**Unraid:** Click **Check for Updates** on the Docker page, then update.
-
-**CLI:**
-```bash
-docker pull pejkaa/seerr-discord-bot:latest
-docker stop SeerrDiscordBot && docker rm SeerrDiscordBot
-# re-run your docker run command
-docker exec SeerrDiscordBot node src/register.js
-```
-
-> Your data in `/app/data` is safe — it's stored in a volume outside the container.
 
 ---
 
@@ -293,18 +275,14 @@ This data survives container restarts, updates, and redeployments as long as you
 - Make sure you ran `docker exec SeerrDiscordBot node src/register.js`
 - Check `DISCORD_GUILD_ID` is set correctly
 
-**"Could not reach Jellyseerr" error:**
+**"Could not reach Seerr" error:**
 - Verify `SEER_URL` includes the port and no trailing slash: `http://192.168.1.100:5055`
 - Check `SEER_API_KEY` is correct
-- Make sure Jellyseerr is reachable from the container's network
+- Make sure Seerr is reachable from the container's network
 
 **Requests going to wrong library:**
-- Verify `LIBRARY_N_SERVER_ID` matches the ID in Jellyseerr Settings → Radarr/Sonarr
+- Verify `LIBRARY_N_SERVER_ID` matches the ID in Seerr Settings → Radarr/Sonarr
 - Re-register commands after changing library variables
-
-**Users not showing after redeployment:**
-- Check the data volume is mounted to the same path as before
-- Copy `users.json` from the old data folder if needed
 
 ---
 
