@@ -16,3 +16,6 @@ docker run -d \
   -e LIBRARY_2_SERVER_ID=0 \
   -v /mnt/user/appdata/SeerrDiscordBot/data:/app/data \
   pejkaa/seerr-discord-bot:latest
+
+#then:
+docker exec SeerrDiscordBot node src/register.js
