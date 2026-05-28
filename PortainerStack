@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  seerr-discord-bot:
+    image: pejkaa/seerr-discord-bot:latest
+    container_name: SeerrDiscordBot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=your_token
+      - DISCORD_CLIENT_ID=your_client_id
+      - DISCORD_GUILD_ID=your_guild_id
+      - REQUESTS_CHANNEL_ID=your_channel_id
+      - NOTIFY_CHANNEL_ID=your_notify_channel_id
+      - SEER_URL=http://192.168.1.100:5055
+      - SEER_API_KEY=your_api_key
+      - LIBRARY_1_NAME=Movies
+      - LIBRARY_1_TYPE=movie
+      - LIBRARY_1_SERVER_ID=0
+      - LIBRARY_2_NAME=TV Shows
+      - LIBRARY_2_TYPE=tv
+      - LIBRARY_2_SERVER_ID=0
+      # Optional libraries:
+      # - LIBRARY_3_NAME=Kids Movies
+      # - LIBRARY_3_TYPE=movie
+      # - LIBRARY_3_SERVER_ID=1
+      # - LIBRARY_4_NAME=Kids TV Shows
+      # - LIBRARY_4_TYPE=tv
+      # - LIBRARY_4_SERVER_ID=1
+    volumes:
+      - /mnt/user/appdata/SeerrDiscordBot/data:/app/data
