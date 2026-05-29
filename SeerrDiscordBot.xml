@@ -17,7 +17,6 @@
   <ExtraParams>--restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
   <DonateText/>
   <DonateLink/>
   <Requires>A Discord Bot Token (from https://discord.com/developers/applications) and a running Overseerr or Jellyseerr instance. After starting, register slash commands by running: docker exec SeerrDiscordBot node src/register.js</Requires>
